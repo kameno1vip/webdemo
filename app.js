@@ -37,4 +37,43 @@ function showTemperatures() {
     x[slideIndex-1].style.display = "block";
     dots[slideIndex-1].className += " w3-opacity-off";
     showTemperatures()
-  }
+}
+  
+function createImageSlide (id) {
+    var parentId = '#' + id;
+    var parent = document.querySelector(parentId);
+    var imageFeature = parent.querySelectorAll('.img_feature');
+    var lstImage = parent.querySelectorAll('.list-image img');
+    var nextButton = parent.querySelector('.next');
+    var backButton = parent.querySelector('.back');
+    var currentIndex = 0
+
+    lstImage.forEach((image, index) => { 
+        image.addEventListener('click', e => {
+            currentIndex = index;
+            updateImageByIndex(index, imageFeature, lstImage)
+        })
+    })
+
+    backButton.addEventListener('click', e => { 
+        if (currentIndex == 0) {
+            currentIndex = lstImage.length - 1;
+        } else { 
+            currentIndex --
+        }
+        updateImageByIndex(currentIndex, imageFeature, lstImage)
+    })
+
+    nextButton.addEventListener('click', e => { 
+        if (currentIndex == lstImage.length - 1) {
+            currentIndex = 0;
+        } else { 
+            currentIndex ++
+        }
+        updateImageByIndex(currentIndex, imageFeature, lstImage)
+    })
+}
+
+function updateImageByIndex(index, mainImage, listImage) {
+    mainImage.src = listImage[index].getAttribute('src')
+}
